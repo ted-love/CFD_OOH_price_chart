@@ -79,6 +79,11 @@ def create_weight_metrics(subplot_structure_container: Dict[str, SubPlotStructur
                         weight_ts_diff_map = {}
                         counts={}
                         barrier=0
+
+                        if len(timestamps_leader) < k:
+                            continue
+
+                        
                         for idx, ts_leader in enumerate(timestamps_leader):
                             if np.isnan(delta_leader[ts_leader]):
                                 continue
@@ -106,9 +111,7 @@ def create_weight_metrics(subplot_structure_container: Dict[str, SubPlotStructur
                                     weight_ts_diff_map[round(weight, 1)] = []
                                 else:
                                     weight_ts_diff_map[round(weight,1)].append(np.floor(diff / 0.005) * 0.005)
-                            
-                        from pprint import pprint
-                        
+                                                    
                         for key, values in weight_ts_diff_map.items(): 
                             counts[key] = len(values)
                             weight_ts_diff_map[key] = np.median(values)
@@ -121,7 +124,6 @@ def create_weight_metrics(subplot_structure_container: Dict[str, SubPlotStructur
                         response_data_delta[name_leader][ts_leader] = inner_dict
                         weights[ts_leader] = weight
                         ts_weights.append(ts_leader)
-                                                        
                         leader_object = classes_ig_measuring.Leader(name=name_leader,
                                                                     init_price=init_price_leader,
                                                                     last_timestamp=last_timestamp_leader,
@@ -144,8 +146,11 @@ def create_weight_metrics(subplot_structure_container: Dict[str, SubPlotStructur
                         last_timestamp_leaders[name_leader] = last_timestamp_leader
 
                         timeseries_leaders[name_leader] = timeseries_leader
+
                         
                         dynamic_medians[name_leader] = math_numerics.DynamicMedian(list(weights.values()))
+                        
+
                         subset_dynamic_medians[name_leader] = math_numerics.DynamicMedian(dynamic_medians[name_leader].get_values()[-2:])
                         subset_dynamic_medians_prev[name_leader] = math_numerics.DynamicMedian(dynamic_medians[name_leader].get_values()[-2-k:-2])
                         weight_list_container[name_leader] = dynamic_medians[name_leader].get_values()
