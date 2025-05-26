@@ -25,7 +25,7 @@ def main():
     if you want real, you have to change the delay in /time_helpers/classes
     """
     
-    test_flag=False
+    test_flag=True
     ig_measure=True  # IG analytics
     
     if test_flag:
