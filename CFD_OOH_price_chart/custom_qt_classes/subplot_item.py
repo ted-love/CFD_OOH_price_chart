@@ -84,7 +84,6 @@ class SubplotItem(pg.PlotItem):
     def create_operation(self, expression):
         selected_names=[]
         display_names = list(self.plotdataitem_container.keys())
-        expression = "US500-CN50"
         for name in display_names:
             if name in expression:
                 selected_names.append(name)
