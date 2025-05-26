@@ -339,8 +339,9 @@ class CustomViewBox(pg.ViewBox):
         self.crosshairs_in_frame(self.crosshairs_on)
 
     def update_crosshairs_position(self, x, y):
-        self.crosshair_v.setPos(x)
-        self.crosshair_h.setPos(y)
+        if self.crosshairs_on:
+            self.crosshair_v.setPos(x)
+            self.crosshair_h.setPos(y)
     
     def crosshairs_in_frame(self, flag):
         if flag:
