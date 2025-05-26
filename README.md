@@ -3,16 +3,10 @@ Create the conda environment by cd-ing to /CFD_OOH_price_chart/ then executing
 conda env create -f environment.yaml
 ```
 
-To use the synthetic test, in main.py, set `test_flag=True` and in `utils.py` set 
+To use the synthetic test, in main.py, set `test_flag=True`
 ```python 
-# utils.py
-delay_datetime = datetime(2025, 5, 6, 9)
-```
-For real-time, set
-
-```python 
-# utils.py
-delay_datetime = datetime_now 
+# main.py
+test_flag=True
 ```
 
 To change window configurations, go to `subplot_structure/config.py` and create a dictionary variable for each subplot.
