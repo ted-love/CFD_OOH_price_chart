@@ -1,3 +1,8 @@
+Create the conda environment by cd-ing to /CFD_OOH_price_chart/ then executing
+```BASH
+conda env create -f environment.yaml
+```
+
 To use the synthetic test, in main.py, set `test_flag=True` and in `utils.py` set 
 ```python 
 # utils.py
