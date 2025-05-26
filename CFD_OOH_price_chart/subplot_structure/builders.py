@@ -11,6 +11,7 @@ from . import classes as classes_plot_config
 
 from time_helpers import builders as builders_time_helpers
 from time_helpers import classes as classes_time_helpers
+from time_helpers.classes import PatchedDateTime
 from time_helpers import utils as utils_time_helpers
 
 
@@ -24,7 +25,7 @@ def create_subplot_structure_containers(plot_configs: Dict[str, Dict[str, str]],
         focus_instrument = config["focus_instrument"]
         instrument_specs = instrument_container[focus_instrument].specs
         if not instrument_specs.close_time is None:
-            current_time_market_tz = classes_time_helpers.PatchedDateTime.now().astimezone(pytz.timezone(instrument_specs.timezone))
+            current_time_market_tz = PatchedDateTime.now().astimezone(pytz.timezone(instrument_specs.timezone))
             open_periods, closed_periods = builders_time_helpers.create_open_closed_periods(current_time_market_tz,
                                                                                             instrument_specs.timezone,
                                                                                             instrument_specs.holiday_schedule,
@@ -37,6 +38,9 @@ def create_subplot_structure_containers(plot_configs: Dict[str, Dict[str, str]],
             most_recent_close_timestamp = utils_time_helpers.get_most_recent_close_timestamp(instrument_specs.timezone,
                                                                                              closed_periods)
             
+            most_recent_close_date = PatchedDateTime.fromtimestamp(most_recent_close_timestamp).date()
+            if PatchedDateTime.now().date() != most_recent_close_date:
+                print(f"\n{name} has its closest close time {PatchedDateTime.fromtimestamp(most_recent_close_timestamp)}. Make sure the dir /historical/data/todays_data/{most_recent_close_date}/\n")
             
             filtered_timeseries = {name : timseries for name, timseries in timeseries_parent_container.items() if name in config["instrument_names"]}
             filtered_instruments = {name : instrument_object for name, instrument_object in instrument_container.items() if name in config["instrument_names"]}

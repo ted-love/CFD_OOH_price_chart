@@ -93,7 +93,6 @@ def create_instrument_specs_container(instrument_name_container: List[str],
         breaks = _parse_breaks_str(inner_dict["breaks"])
 
         exchange_obj = exchanges.get(inner_dict["exchange"], None)
-
         kwargs["name"] = name
         kwargs["asset_class"] = inner_dict["asset_class"]
         kwargs["exchange"] = inner_dict["exchange"]

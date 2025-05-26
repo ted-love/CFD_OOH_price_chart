@@ -18,7 +18,6 @@ def clean_data(df: pd.DataFrame,
     df = df.dropna(axis=0)
     
     df[["bid", "ask"]] = df[["bid", "ask"]].ffill()
-        
     mask = df.notna().all(axis=1)
     
     first_good = mask.idxmax()   

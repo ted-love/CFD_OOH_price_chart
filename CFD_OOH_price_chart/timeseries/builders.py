@@ -29,11 +29,11 @@ def _create_parent_timeseries(instrument_name: str,
     return classes_timeseries.ParentTimeSeries(**kwargs)
 
 
-def concat_timeseries(timeserie_container: Dict[str, List[np.ndarray, np.ndarray]]):
+def concat_timeseries(timeseries_container: Dict[str, List[np.ndarray, np.ndarray]]):
     df_frames=[]
     cols = []
     di= pd.DataFrame()
-    for name, timeseries_data in timeserie_container.items():
+    for name, timeseries_data in timeseries_container.items():
         df_i = pd.DataFrame(timeseries_data[1], index = timeseries_data[0], columns=[name])
         df_frames.append(df_i)
         if len(di) == 0:

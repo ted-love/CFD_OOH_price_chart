@@ -25,11 +25,13 @@ def main():
     if you want real, you have to change the delay in /time_helpers/classes
     """
     
-    test_flag=False
+    test_flag=True
+    ig_measure=True  # IG analytics
+    
     if test_flag:
         classes_time_helpers.initialize_time_helpers(test_flag)        
         
-    ig_measure=True  # IG analytics
+    
 
     capital_ig_map, ig_capital_map = utils_info.create_capital_ig_maps()
     plot_configurations, instrument_container = subplot_structure_config.get_config()
