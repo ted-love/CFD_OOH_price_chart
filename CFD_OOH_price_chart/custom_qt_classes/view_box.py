@@ -353,7 +353,7 @@ class CustomViewBox(pg.ViewBox):
             self.crosshair_v.hide()
             for plot_data_item in self.instrument_data_items.values():
                 y_value = plot_data_item.yData[-1]
-                self.legend.setText(utils.format_price(y_value), plot_data_item)
+                self.legend.setText(y_value, plot_data_item)
 
     def hoverEvent(self, ev):
         if ev.isEnter():            
