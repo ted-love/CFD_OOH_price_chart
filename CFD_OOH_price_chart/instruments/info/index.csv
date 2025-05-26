@@ -1,0 +1,16 @@
+name,asset_class ,open_time_st ,open_time_dst ,close_time_st ,close_time_dst,auction_duration,breaks,timezone,exchange,weekday_open_schedule,weekday_closed_schedule,st_structure,dst_structure
+DE40,index_cfd,01:15,02:15,22:00,22:00,15,None,Europe/Berlin,EUREX,"[0, 1, 2, 3, 4]","[0, 1, 2, 3, 4]",standard,standard
+EU50,index_cfd,01:15,02:15,22:00,22:00,15,None,Europe/Berlin,EUREX,"[0, 1, 2, 3, 4]","[0, 1, 2, 3, 4]",standard,standard
+SP35,index_cfd,08:00,08:00,20:00,22:00,5,None,Europe/Berlin,BME,"[0, 1, 2, 3, 4]","[0, 1, 2, 3, 4]",standard,standard
+SW20,index_cfd,07:50,07:50,22:00,22:00,5,None,Europe/Berlin,EUREX,"[0, 1, 2, 3, 4]","[0, 1, 2, 3, 4]",standard,standard
+UK100,index_cfd,01:00,01:00,21:00,21:00,15,None,Europe/London,ICE,"[0, 1, 2, 3, 4]","[0, 1, 2, 3, 4]",standard,standard
+HK50,index_cfd,09:15,09:15,03:00,03:00,30,"[12:00-13:00, 16:30-17:15] ",Asia/Hong_Kong,HKEX,"[0, 1, 2, 3, 4]","[1, 2, 3, 4, 5]",standard,standard
+SG25,index_cfd,08:30,08:30,05:15,05:15,15,[17:20-17:50] ,Asia/Singapore,SGX,"[0, 1, 2, 3, 4]","[1, 2, 3, 4, 5]",standard,standard
+CN50,index_cfd,09:00,09:00,05:15,05:15,15,[16:30-16:45],Asia/Singapore,SGX,"[0, 1, 2, 3, 4]","[1, 2, 3, 4, 5]",standard,standard
+TWN,index_cfd,08:45,08:45,05:15,05:15,15,[13:45-14:00],Asia/Singapore,SGX,"[0, 1, 2, 3, 4]","[1, 2, 3, 4, 5]",standard,standard
+J225,index_cfd,08:45,08:45,06:00,06:00,15,[15:45-17:00] ,Asia/Tokyo,JPX,"[0, 1, 2, 3, 4]","[1, 2, 3, 4, 5]",standard,standard
+US500,index_cfd,17:00,17:00,16:00,16:00,0,None,America/Chicago,CME,"[6, 0, 1, 2, 3]","[0, 1, 2, 3, 4]",standard,standard
+US100,index_cfd,17:00,17:00,16:00,16:00,0,None,America/Chicago,CME,"[6, 0, 1, 2, 3]","[0, 1, 2, 3, 4]",standard,standard
+US30,index_cfd,17:00,17:00,16:00,16:00,0,None,America/Chicago,CME,"[6, 0, 1, 2, 3]","[0, 1, 2, 3, 4]",standard,standard
+OMX30,index_cfd,09:00,09:00,17:25,17:25,5,None,Europe/Berlin,NASDAQ AB,"[0, 1, 2, 3, 4]","[0, 1, 2, 3, 4]",standard,standard
+AU200,index_cfd,09:50,09:50,07:00,08:00,0,[16:30-17:10],Australia/Sydney,ASX,"[0, 1, 2, 3, 4]","[1, 2, 3, 4, 5]",2_sunday_march&1_sunday_november,1_sunday_november&2_sunday_march
