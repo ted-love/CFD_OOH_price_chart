@@ -1,0 +1,2 @@
+name,timezone,weekday_open_schedule,weekday_closed_schedule
+EURONEXT,Europe/Berlin,"[0, 1, 2, 3, 4]","[0, 1, 2, 3, 4]"

@@ -10,35 +10,6 @@ from pprint import pformat
 
 
 
-datetime_now = datetime.now()
-
-delay_datetime = datetime(2025, 5, 6, 9)  # synthetic
-#delay_datetime = datetime_now   # real-time
-
-
-
-sec_delay = (datetime_now - delay_datetime).total_seconds()
-
-
-class PatchedDateTime(datetime):
-    @classmethod
-    def now(cls, tz=None):
-        return super().now(tz) - timedelta(seconds=sec_delay)
-
-
-class SystemClock:
-    def __init__(self, minute_offset=None, specific_time=None):
-        if not specific_time is None:
-            minute_offset = (datetime.now() - specific_time).total_seconds() / 60
-        if minute_offset is None:
-            self.current_datetime_func = datetime.now
-        else:
-            self.current_datetime_func = lambda: datetime.now() - timedelta(minutes=minute_offset)
-        
-    def get_datetime_now(self):
-        return self.current_datetime_func()
-    
-
 def get_epic_attr():
     return {
         "DE40":    {"tolerance": 0.0015},

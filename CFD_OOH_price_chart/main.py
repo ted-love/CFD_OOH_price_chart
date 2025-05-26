@@ -1,7 +1,8 @@
 from __future__ import annotations
+
 from streaming import synthetic_client
 from timeseries import builders as builders_timeseries
-from historical import utils as utils_historical
+from historical import builders as builders_historical
 from instruments import builders as builders_instruments
 from exchanges import builders as exchanges_utils
 from subplot_structure import config as subplot_structure_config
@@ -14,27 +15,36 @@ import workers
 import sys
 from ig_measuring import builders as builders_ig_measuring
 from ig_measuring import config as config_ig_measuring
+from instruments.info import info_utils as utils_info
+from time_helpers import classes as classes_time_helpers
+
 
 def main():
     
     """
     if you want real, you have to change the delay in /time_helpers/classes
     """
-    test_flag=True
+    
+    test_flag=False
+    if test_flag:
+        classes_time_helpers.initialize_time_helpers(test_flag)        
+        
     ig_measure=True  # IG analytics
-    
-    
+
+    capital_ig_map, ig_capital_map = utils_info.create_capital_ig_maps()
     plot_configurations, instrument_container = subplot_structure_config.get_config()
 
+    
+    
     exchange_container = exchanges_utils.create_exchange_objects()
-    
-    instrument_specs = builders_instruments.create_instrument_spec_dataclasses(instrument_container, exchange_container)
-    instrument_info_container = builders_instruments.create_instrument_info_classes(instrument_specs)
-    
-    df_dict = utils_historical.get_historical_data(instrument_container, test_flag)
 
-    timeseries_parent_container = builders_timeseries.create_parent_timeseries_container(instrument_container, df_dict)
+    instrument_specs = builders_instruments.create_instrument_specs_container(instrument_container, exchange_container)
+    instrument_info_container = builders_instruments.create_instrument_info_container(instrument_specs)
     
+    df_dict = builders_historical.get_historical_data(instrument_container,
+                                                    capital_ig_map,
+                                                    test_flag)
+    timeseries_parent_container = builders_timeseries.create_parent_timeseries_container(df_dict)
     instrument_container = builders_instruments.create_instrument_objects_objects(instrument_container,
                                                                                   timeseries_parent_container,
                                                                                   instrument_specs,
@@ -53,9 +63,13 @@ def main():
         
     queue = Queue()
     if test_flag:
-        streaming_client = synthetic_client.create_streaming_application(instrument_container, queue)
+        streaming_client = synthetic_client.create_streaming_application(instrument_container,
+                                                                         capital_ig_map,
+                                                                         queue)
     else:
-        streaming_client = ig_client.create_streaming_application(instrument_container, queue)
+        streaming_client = ig_client.create_streaming_application(instrument_container,
+                                                                  capital_ig_map,
+                                                                  queue)
     
     app = application.Application(sys.argv)
 

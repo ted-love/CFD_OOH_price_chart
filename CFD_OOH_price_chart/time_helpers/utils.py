@@ -7,6 +7,7 @@ import pytz
 from datetime import datetime, time, timedelta, date
 from typing import List, Tuple, Dict, Union
 from . import classes as classes_time_helpers
+from .classes import PatchedDateTime
 
 
 def _find_closest_weekday(start_datetime, end_weekday, add_sub_function):
@@ -42,7 +43,7 @@ def get_auction_period(open_time: Union[time, None],
     auction_period_final=None
     if isinstance(auction_duration, (float, int)) and not open_time is None:
         if auction_duration > 0:
-            auction_start_datetime = datetime.combine(datetime.now().date(), open_time) - timedelta(minutes=auction_duration)
+            auction_start_datetime = datetime.combine(PatchedDateTime.now().date(), open_time) - timedelta(minutes=auction_duration)
             auction_start_time = auction_start_datetime.time()
             auction_period_final = (auction_start_time, open_time)
             
@@ -88,7 +89,7 @@ def find_current_trading_period(market_datetime: datetime,
 def get_most_recent_close_timestamp(timezone: str,
                                     closed_periods: List[Dict[str, datetime]],
                                     ) -> float:
-    current_time_market_tz = classes_time_helpers.PatchedDateTime.now().astimezone(pytz.timezone(timezone))
+    current_time_market_tz = PatchedDateTime.now().astimezone(pytz.timezone(timezone))
 
     prev_close_datetime = closed_periods[0]["start"]
     for closed_period in closed_periods[1:]:
@@ -176,7 +177,7 @@ def check_if_currently_opened(current_market_datetime: datetime,
 def get_most_recent_close_timestamp(timezone: str,
                              closed_periods: List[Dict[str, datetime]],
                              ) -> float:
-    current_time_market_tz = classes_time_helpers.PatchedDateTime.now().astimezone(pytz.timezone(timezone))
+    current_time_market_tz = PatchedDateTime.now().astimezone(pytz.timezone(timezone))
 
     prev_close_datetime = closed_periods[0]["start"]
     for closed_period in closed_periods[1:]:

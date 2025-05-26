@@ -1,39 +1,30 @@
 import pandas as pd
 import os
+import re
 
+
+def _read_csv(directory, file_name):
+    df = pd.read_csv(os.path.join(directory, file_name), index_col="name")
+    df.columns = df.columns.str.replace(r'\s+', '', regex=True)
+    df.index = df.index.str.replace(r'\s+', '', regex=True)
+    df.index.name = re.sub(r'\s+', '', df.index.name) if df.index.name else None
+    df = df.map(lambda x: re.sub(r'\s+', '', x) if isinstance(x, str) else x)
+    return df
+    
 def combine_and_get():
     current_dir = os.path.dirname(os.path.abspath(__file__))
-    forex = pd.read_csv(os.path.join(current_dir, "forex.csv"), index_col="name")
-    commodity = pd.read_csv(os.path.join(current_dir, "commodity.csv"), index_col="name")
-    index = pd.read_csv(os.path.join(current_dir, "index.csv"), index_col="name")
+    
+    forex = _read_csv(current_dir, "forex.csv")
+    commodity = _read_csv(current_dir, "commodity.csv")
+    index = _read_csv(current_dir, "index.csv")
     df = pd.concat([forex, commodity, index], axis=0)
     return df
 
 
-def epic_naming_map():
-    capital_to_IG = {"US500" : "IX.D.SPTRD.IFA.IP",
-                     "HK50" : "IX.D.HANGSENG.IFA.IP",
-                     "COPPER" : "CC.D.HG.UMA.IP",
-                     "DE40" : "IX.D.DAX.IFA.IP",
-                     "EU50" : "IX.D.STXE.IFM.IP",
-                     "CN50" : "IX.D.XINHUA.IFA.IP",
-                     "SW20" : "IX.D.SMI.IFD.IP",
-                     "UK100" : "IX.D.FTSE.CFD.IP",
-                     "OMX30" : "IX.D.OMX.CFD.IP",
-                     "SP35" : "IX.D.IBEX.CFD.IP",
-                     "AU200" : "IX.D.ASX.IFD.IP",
-                     "J225" : "IX.D.NIKKEI.IFD.IP",
-                     "TWN" : "IX.D.TAIWAN.IFD.IP",
-                     "SG25" : "IX.D.SINGAPORE.IFD.IP",
-                     "EURUSD" : "CS.D.EURUSD.CFD.IP",
-                     "GBPUSD" : "CS.D.GBPUSD.CFD.IP",
-                     "USDCHF" : "CS.D.USDCHF.CFD.IP",
-                     "EURCHF" : "CS.D.EURCHF.CFD.IP",
-                     "GBPEUR" : "CS.D.GBPEUR.CFD.IP",
-                     "USDJPY" : "CS.D.USDJPY.CFD.IP",
-                     "EURJPY" : "CS.D.EURJPY.CFD.IP",
-                     "DXY" : "CC.D.DX.UMA.IP"
-                     }
-    
-    IG_to_capital = {value : key for key, value in capital_to_IG.items()}
-    return capital_to_IG, IG_to_capital
+def create_capital_ig_maps():
+    df = combine_and_get()
+    df = df.reset_index(drop=False)
+    capital_ig_map = df.set_index("name").to_dict()["ig_name"]
+    ig_capital_map = df.set_index("ig_name").to_dict()["name"]
+ 
+    return capital_ig_map, ig_capital_map

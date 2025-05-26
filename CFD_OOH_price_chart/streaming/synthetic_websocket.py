@@ -10,13 +10,13 @@ from dataclasses import dataclass
 import threading
 from websockets.asyncio.client import connect
 from time_helpers.classes import PatchedDateTime
-from historical import utils
+from historical import builders as builders_historical
 
 
 def get_data(names):
     data_dict = {}
     for name in names:
-        df_i = utils.retrieve_data(name)        
+        df_i = builders_historical.retrieve_data(name, True)        
         df_i["name"] = name
         df_i_filtered = df_i.loc[df_i["UTM"] > PatchedDateTime.now().timestamp() * 1000].copy()
         df_i_filtered.loc[df_i_filtered.index, "index_val"] = df_i_filtered["UTM"].values

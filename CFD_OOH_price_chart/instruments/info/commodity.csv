@@ -1,2 +1,3 @@
-name,asset_class ,open_time_st ,open_time_dst ,close_time_st ,close_time_dst,auction_duration,breaks,timezone,exchange,weekday_open_schedule,weekday_closed_schedule,st_structure,dst_structure
-COPPER,commodity_cfd,17:00,17:00,16:00,16:00,0,None,America/Chicago,CME,"[6, 0, 1, 2, 3]","[0, 1, 2, 3, 4]",standard,standard
+name,ig_name,asset_class ,open_time_st ,open_time_dst ,close_time_st ,close_time_dst,auction_duration,breaks,timezone,exchange,weekday_open_schedule,weekday_closed_schedule,st_structure,dst_structure
+COPPER,CC.D.HG.UMA.IP,commodity_cfd,17:00,17:00,16:00,16:00,0,None,America/Chicago,CME,"[6, 0, 1, 2, 3]","[0, 1, 2, 3, 4]",standard,standard
+DXY,CC.D.DX.UMA.IP,commodity_cfd,01:00,01:00,22:00,22:00,30,None,Europe/London,ICE,"[0, 1, 2, 3, 4]","[0, 1, 2, 3, 4]",standard,standard

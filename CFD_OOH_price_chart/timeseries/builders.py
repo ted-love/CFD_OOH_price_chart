@@ -1,22 +1,18 @@
 from __future__ import annotations
 from typing import List, Dict, TYPE_CHECKING, Tuple
 if TYPE_CHECKING:
-    from instruments.classes import InstrumentContainer
     from timeseries.classes import TimeSeries
     
     
 import pandas as pd
-from mathematics import numerics as math_numerics
 from . import classes as classes_timeseries
 import numpy as np
 
-def create_parent_timeseries_container(instrument_names: List[str],
-                            data_all: Dict[str, pd.DataFrame]
-                            ) -> TimeSeries:
+def create_parent_timeseries_container(data_all: Dict[str, pd.DataFrame]
+                                       ) -> TimeSeries:
     time_series_containers={}
-    for instrument_name in instrument_names:
-        df = data_all[instrument_name]
-        time_series_containers[instrument_name] = _create_parent_timeseries(instrument_name, df)
+    for name, df in data_all.items():
+        time_series_containers[name] = _create_parent_timeseries(name, df)
     return time_series_containers
     
 def _create_parent_timeseries(instrument_name: str,

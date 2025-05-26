@@ -146,7 +146,6 @@ def create_weight_metrics(subplot_structure_container: Dict[str, SubPlotStructur
                         timeseries_leaders[name_leader] = timeseries_leader
                         
                         dynamic_medians[name_leader] = math_numerics.DynamicMedian(list(weights.values()))
-
                         subset_dynamic_medians[name_leader] = math_numerics.DynamicMedian(dynamic_medians[name_leader].get_values()[-2:])
                         subset_dynamic_medians_prev[name_leader] = math_numerics.DynamicMedian(dynamic_medians[name_leader].get_values()[-2-k:-2])
                         weight_list_container[name_leader] = dynamic_medians[name_leader].get_values()

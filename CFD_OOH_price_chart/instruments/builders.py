@@ -11,7 +11,6 @@ from .info import info_utils
 import numpy as np
 from . import classes as classes_instruments
 from exchanges.classes import ExchangeInfo
-from utils import PatchedDateTime
 from time_helpers import utils as utils_time_helpers
 from time_helpers import builders as builders_time_helpers
 from time_helpers.classes import PatchedDateTime
@@ -31,10 +30,10 @@ def _parse_breaks_str(breaks):
     return break_intervals
 
 
-def create_instrument_info_classes(instrument_spec_container: Dict[str, InstrumentSpecs]
+def create_instrument_info_container(instrument_specs_container: Dict[str, InstrumentSpecs]
                                    ) -> Dict[str, InstrumentInfo]:
     instrument_info_container = {}
-    for instrument, instrument_specs in instrument_spec_container.items():
+    for instrument, instrument_specs in instrument_specs_container.items():
         current_market_datetime = PatchedDateTime.now().astimezone(pytz.timezone(instrument_specs.timezone))
         
         args = [current_market_datetime,
@@ -64,16 +63,17 @@ def create_instrument_info_classes(instrument_spec_container: Dict[str, Instrume
     return instrument_info_container
 
     
-def create_instrument_spec_dataclasses(instrument_container: List[str],
-                                                exchanges: Dict[str, ExchangeInfo]):
-    instrument_info = info_utils.combine_and_get()
+def create_instrument_specs_container(instrument_name_container: List[str],
+                                      exchanges: Dict[str, ExchangeInfo]
+                                      ) -> Dict[str, InstrumentInfo]:
+    instrument_info_df = info_utils.combine_and_get()
 
-    instrument_info = instrument_info.loc[instrument_info.index.isin(instrument_container)]
-    instrument_info.columns = [col.strip(" ") for col in instrument_info.columns]
+    instrument_info_df = instrument_info_df.loc[instrument_info_df.index.isin(instrument_name_container)]
+    instrument_info_df.columns = [col.strip(" ") for col in instrument_info_df.columns]
     
-    instrument_info_dict = instrument_info.to_dict(orient="index")
+    instrument_info_dict = instrument_info_df.to_dict(orient="index")
     
-    instrument_info_dataclas_container = {}
+    instrument_specs_container = {}
     
     for name, inner_dict in instrument_info_dict.items():
         kwargs = {}
@@ -105,9 +105,9 @@ def create_instrument_spec_dataclasses(instrument_container: List[str],
         kwargs["weekday_open_schedule"] = eval(inner_dict["weekday_open_schedule"])
         kwargs["weekday_closed_schedule"] = eval(inner_dict["weekday_closed_schedule"])
         kwargs["holiday_schedule"] = exchange_obj.holiday_schedule if not exchange_obj is None else None
-        instrument_info_dataclass = classes_instruments.InstrumentSpecs(**kwargs)
-        instrument_info_dataclas_container[name] = instrument_info_dataclass
-    return instrument_info_dataclas_container
+        instrument_specs = classes_instruments.InstrumentSpecs(**kwargs)
+        instrument_specs_container[name] = instrument_specs
+    return instrument_specs_container
 
 
 def create_instrument_objects_objects(instrument_container: List[str],

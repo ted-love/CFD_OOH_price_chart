@@ -10,7 +10,8 @@ from streaming import utils as utils_streaming
 import requests
 
 
-def create_streaming_application(capital_epics: List[str],
+def create_streaming_application(instrument_container: List[str],
+                                 capital_epics: Dict[str, str],
                                 queue_object: Queue,
                                 ) -> SyntheticService:
     
@@ -21,7 +22,7 @@ def create_streaming_application(capital_epics: List[str],
     stream_service.create_session()
 
 
-    mode, items, fields = utils_streaming.create_client_inputs(capital_epics)
+    mode, items, fields = utils_streaming.create_client_inputs(instrument_container, capital_epics)
     market_subscription = synthetic_websocket.Subscription(mode=mode, items=items, fields=fields)
 
     listener = market_listener.MarketListener(queue_object)

@@ -50,7 +50,8 @@ def get_headers(username, api_key, password):
     return response
 
 
-def create_streaming_application(capital_epics: List[str],
+def create_streaming_application(instrument_list: List[str],
+                                 capital_ig_map: Dict[str, str],
                                  queue_object: Queue
                                  ) -> IGStreamService:
     
@@ -68,7 +69,8 @@ def create_streaming_application(capital_epics: List[str],
     ig_stream_service = trading_ig.IGStreamService(stream_service)
     ig_stream_service.create_session()
     
-    mode, items, fields = utils_streaming.create_client_inputs(capital_epics)
+    mode, items, fields = utils_streaming.create_client_inputs(instrument_list,
+                                                               capital_ig_map)
     
     market_subscription = client.Subscription(mode=mode, items=items, fields=fields)
 

@@ -36,3 +36,4 @@ def _get_maps():
                 }
     # other maps for other subplots e.g. ASIA 
 ```
+To add/edit instrument specs for an instrument, go to `instruments/info/` and edit the `.csv` files and include the IG in the `instruments/info/info_utils.py` 

@@ -8,7 +8,7 @@ from instruments.info import info_utils
 class MarketListener(client.SubscriptionListener):
     def __init__(self, q: Queue):
         super().__init__()
-        self.capital_to_ig, self.ig_to_capital = info_utils.epic_naming_map()
+        self.capital_to_ig, self.ig_to_capital = info_utils.create_capital_ig_maps()
         self.temp_dict = {}
         self.q = q
 

@@ -76,7 +76,6 @@ class ParentTimeSeries(_BaseTimeSeries):
             convert_values_arg = (self.bid[idx_1:idx_2], self.ask[idx_1:idx_2])
         else:
             convert_values_arg = getattr(self, value_attr_parent)[idx_1:idx_2]   
-
         if metric_engine is None:
             metric_engine = math_numerics.MetricConverter(values=convert_values_arg,
                                                           metric=metric_type,
@@ -105,12 +104,12 @@ class ParentTimeSeries(_BaseTimeSeries):
                      scale: str | None=None,
                      value_attr_parent: str | None=None,
                      ) -> TimeSeries:
-        
         idx_1, idx_2 = self.find_idx_filters(self.timestamps,
                                              start_time,
                                              end_time,
                                              )
-        
+        if idx_1 == len(self.timestamps)-1:
+            idx_1 = len(self.timestamps) - 3
         return self.create_child_at_idx(idx_1,
                                         idx_2,
                                         metric_type,
