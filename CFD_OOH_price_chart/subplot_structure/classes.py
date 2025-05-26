@@ -2,26 +2,17 @@ from __future__ import annotations
 from typing import Callable, Sequence, List, Dict, NoReturn, Union, Tuple, Any, TYPE_CHECKING
 if TYPE_CHECKING:
     from timeseries.classes import ParentTimeSeries, TimeSeries, TheoTimeSeries
-    from instruments.classes import InstrumentContainer, PriceInstrument, SyntheticInstrument
-    from managers.classes import SeriesManager
+    from instruments.classes import PriceInstrument, SyntheticInstrument
     from ig_measuring.classes import Follower, Leader, WeightMetrics
     
     
 from dataclasses import dataclass, field, InitVar
 from typing import List, Dict, Tuple
 import numpy as np 
-import pandas as pd
-from mathematics import numerics
-from custom_numpy import BufferArray
 from mathematics import numerics as math_numerics
-from datetime import datetime   
-from mathematics.numerics import _METRICS
 from custom_qt_classes.plot_data_item import CustomPlotDataItem
-from managers.mapping import MappingEngine
-import copy
 import pyqtgraph as pg
 from misc import themes
-from timeseries import builders as builders_timeseries
 from instruments import classes as classes_instruments
 from timeseries import classes as classes_timeseries
 
@@ -30,7 +21,6 @@ from timeseries import classes as classes_timeseries
 class SubPlotStructure:
     name: str
     instrument_names: List[str]
-    mapper: MappingEngine = field(default_factory=lambda: MappingEngine())
     
     focus_instrument: str
     close_point: float
@@ -205,7 +195,6 @@ class SubPlotStructure:
             timeseries_copy[name] = timeseries_new
         return SubPlotStructure(name=self.name,
                                 instrument_names=self.instrument_names.copy(),
-                                mapper=copy.deepcopy(self.mapper),
                                 focus_instrument=self.focus_instrument,
                                 close_point=self.close_point,
                                 metric_attributes=self.metric_attributes.copy(),
@@ -215,7 +204,6 @@ class SubPlotStructure:
     def clone_without_timeseries(self):
         return SubPlotStructure(name=self.name,
                                 instrument_names=self.instrument_names.copy(),
-                                mapper=copy.deepcopy(self.mapper),
                                 focus_instrument=self.focus_instrument,
                                 close_point=self.close_point,
                                 metric_attributes=self.metric_attributes.copy(),

@@ -1,8 +1,6 @@
 from __future__ import annotations
 from typing import List, Optional, Tuple, Union, Dict, TYPE_CHECKING
 if TYPE_CHECKING:
-    from subplot_structure.classes import SubPlotStructure
-    from custom_qt_classes.subplot_item import SubplotItem
     from custom_qt_classes.custom_widgets import CustomLegend
     from custom_qt_classes.data_helpers import DataLimits
     
@@ -10,18 +8,14 @@ import utils
 import pyqtgraph as pg
 import numpy as np
 import utils
-from PySide6 import QtWidgets, QtCore
+from PySide6 import QtCore
 import pandas as pd
 from datetime import datetime, time, timedelta
 from dateutil import parser
-
 import pytz
 from custom_qt_classes.plot_data_item import CustomPlotDataItem
 from custom_qt_classes.menu import CustomMenu
-from pyqtgraph import ViewBox
-from pyqtgraph.Point import Point
-from pyqtgraph import functions as pyqtgraph_fn
-from timeseries.classes import TimeSeries, TheoTimeSeries
+from timeseries.classes import TheoTimeSeries
 from custom_qt_classes import data_helpers
     
 class CustomViewBox(pg.ViewBox):

@@ -1,10 +1,14 @@
 from __future__ import annotations
+from typing import List, Dict, TYPE_CHECKING
+if TYPE_CHECKING:
+    from timeseries.classes import ParentTimeSeries
+    from .classes import InstrumentSpecs, InstrumentInfo, PriceInstrument
+
 from datetime import time
 import pytz
-from typing import List, Dict, TYPE_CHECKING
+
 from .info import info_utils
 import numpy as np
-import copy
 from . import classes as classes_instruments
 from exchanges.classes import ExchangeInfo
 from utils import PatchedDateTime
@@ -12,12 +16,6 @@ from time_helpers import utils as utils_time_helpers
 from time_helpers import builders as builders_time_helpers
 from time_helpers.classes import PatchedDateTime
 from time_helpers import classes as classes_time_helpers
-from mathematics import numerics as math_numerics
-
-if TYPE_CHECKING:
-    from timeseries.classes import ParentTimeSeries
-    from .classes import InstrumentSpecs, InstrumentInfo, PriceInstrument, InstrumentContainer, InstrumentContainer
-    from subplot_structure.classes import SubPlotStructure
 
 
 

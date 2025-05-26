@@ -1,21 +1,17 @@
 from __future__ import annotations
 from typing import List, Optional, Tuple, Union, Dict, TYPE_CHECKING
 if TYPE_CHECKING:
-    from instruments.classes import PriceInstrument, InstrumentContainer, SyntheticInstrument
     from subplot_structure.classes import SubPlotStructure
     from custom_qt_classes.view_box import CustomViewBox
     
 
-
 import pyqtgraph as pg
-import numpy as np
 from custom_qt_classes.custom_widgets import CustomLegend
 from custom_qt_classes.plot_data_item import CustomPlotDataItem
 from misc import themes
-from PySide6 import QtWidgets, QtCore
+from PySide6 import QtCore
 from custom_qt_classes.custom_widgets import MedianLegend
 from custom_qt_classes.plot_data_item import CustomScatterPlotDataItem
-from mathematics import numerics as math_numerics
 
 
 class SubplotItem(pg.PlotItem):

@@ -1,26 +1,18 @@
 from __future__ import annotations
-import warnings
-import pyqtgraph as pg
-import numpy as np
-import math
-import utils
-from PySide6 import QtWidgets, QtCore, QtGui
-from custom_qt_classes.custom_widgets import CustomLegend
-import pandas as pd
-from datetime import datetime, time, timedelta
-from dateutil import parser
-from typing import List, Optional, Tuple, Union, Dict, TYPE_CHECKING, Callable
-from custom_numpy import BufferArray
-import copy
 
+from typing import List, Optional, Tuple, Union, Dict, TYPE_CHECKING, Callable
 if TYPE_CHECKING:
     from timeseries.classes import TimeSeries, TimeSeries
     from mathematics.numerics import MetricConverter
     from custom_qt_classes.view_box import CustomViewBox
 
+import pyqtgraph as pg
+from PySide6 import QtCore, QtGui
+
 from timeseries.classes import TimeSeries, TheoTimeSeries
 from custom_qt_classes import data_helpers
 from mathematics import numerics as math_numerics
+import copy
 
 class CustomPlotDataItem(pg.PlotDataItem):
     sigVisibilityChanged = QtCore.Signal(object)

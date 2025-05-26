@@ -1,24 +1,12 @@
 from __future__ import annotations
 from typing import Callable, Sequence, List, Dict, NoReturn, Union, Tuple, Any, TYPE_CHECKING
 if TYPE_CHECKING:
-    from timeseries.classes import ParentTimeSeries, TimeSeries
-    from instruments.classes import InstrumentContainer, PriceInstrument, SyntheticInstrument
     from subplot_structure.classes import SubPlotStructure
 
-from timeseries.classes import TimeSeries
-from instruments.classes import PriceInstrument
 import pandas as pd
 import numpy as np
-from time_helpers.classes import PatchedDateTime
-from .classes import Follower, Leader
-import pytz
-from time_helpers import builders as builders_time_helpers
 from mathematics import numerics as math_numerics
-
-from time_helpers import utils as utils_time_helpers
-from instruments.classes import PriceInstrument
 from . import classes as classes_ig_measuring
-from . import config as config_ig_measuring
 
 def create_weight_metrics(subplot_structure_container: Dict[str, SubPlotStructure],
                           configs: Dict[str, str[Dict[str, List[str]]]]

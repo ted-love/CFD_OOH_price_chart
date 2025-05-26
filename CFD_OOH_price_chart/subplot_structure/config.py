@@ -37,7 +37,6 @@ def _get_maps():
                  "focus_instrument" : "CN50"
                 }
     
-    
     asia_map = {"name" : "ASIA",
                   "instrument_names" : ["HK50", "CN50", "US500"],
                 "focus_instrument" : "HK50"

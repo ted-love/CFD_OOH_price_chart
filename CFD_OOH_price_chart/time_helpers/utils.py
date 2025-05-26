@@ -9,8 +9,6 @@ from typing import List, Tuple, Dict, Union
 from . import classes as classes_time_helpers
 
 
-
-
 def _find_closest_weekday(start_datetime, end_weekday, add_sub_function):
     for idx in range(7):
         datetime_i = add_sub_function(start_datetime, timedelta(days=idx))
@@ -26,7 +24,6 @@ def _create_datetime_range(current_market_datetime: datetime,
                            ) -> List[date]:
     schedule_min_temp = current_market_datetime.date() - timedelta(days=n_points)
     schedule_max_temp = current_market_datetime.date() + timedelta(days=n_points)
-    
     
     datetime_range_lower = _find_closest_weekday(schedule_min_temp, weekday_closed_schedule, np.subtract)
     datetime_range_upper = _find_closest_weekday(schedule_max_temp, weekday_open_schedule, np.add)
@@ -191,8 +188,6 @@ def get_most_recent_close_timestamp(timezone: str,
     
 
 
-
-
 def find_closest_points(current_market_datetime, market_tz, open_periods, closed_periods):
     current_market_datetime = current_market_datetime.replace(tzinfo=None)
     currently_open="unknown"
@@ -220,12 +215,6 @@ def find_closest_points(current_market_datetime, market_tz, open_periods, closed
                 prev_close = pd.Timestamp(closest_close_pre, tz=pytz.timezone(market_tz))
                 break
     return currently_open, closest_open, closest_close, prev_close
-
-
-    
-    
-
-
 
 
 def tester():

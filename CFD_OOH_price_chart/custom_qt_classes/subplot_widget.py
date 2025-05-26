@@ -2,11 +2,9 @@ from __future__ import annotations
 from typing import List, Optional, Tuple, Union, Dict, TYPE_CHECKING
 
 if TYPE_CHECKING:
-    from timeseries.classes import TimeSeries, TimeSeries
     from custom_qt_classes.view_box import CustomViewBox
     from custom_qt_classes.subplot_item import SubplotItem
 import pyqtgraph as pg
-import numpy as np
 from PySide6 import QtWidgets
 from datetime import datetime   
 

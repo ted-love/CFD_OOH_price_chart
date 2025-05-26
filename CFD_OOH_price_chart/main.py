@@ -1,11 +1,8 @@
-#%%
 from __future__ import annotations
-
 from streaming import synthetic_client
 from timeseries import builders as builders_timeseries
 from historical import utils as utils_historical
 from instruments import builders as builders_instruments
-
 from exchanges import builders as exchanges_utils
 from subplot_structure import config as subplot_structure_config
 from subplot_structure import builders as builders_subplot_structure
@@ -18,19 +15,13 @@ import sys
 from ig_measuring import builders as builders_ig_measuring
 from ig_measuring import config as config_ig_measuring
 
-
 def main():
     
     """
     if you want real, you have to change the delay in /time_helpers/classes
     """
     test_flag=True
-    
-    
-    
-    ig_measure=True
-    
-    
+    ig_measure=True  # IG analytics
     
     
     plot_configurations, instrument_container = subplot_structure_config.get_config()
@@ -49,8 +40,6 @@ def main():
                                                                                   instrument_specs,
                                                                                   instrument_info_container
                                                                                   )
-    
-    
     
     subplot_structure_container = builders_subplot_structure.create_subplot_structure_containers(plot_configurations,
                                                                                                  timeseries_parent_container,
@@ -74,19 +63,15 @@ def main():
     builders_custom_qt_classes.add_data_to_subplots(subplot_widget_container)
     
     app.add_subplot_widgets(subplot_widget_container)
-    
     app.add_data(instrument_container,
                  timeseries_parent_container,
                  exchange_container)
+    
     websocket_worker = workers.WebsocketWorker(queue=queue)
     app.add_streaming_apps(websocket_worker, streaming_client)
     app.start()
     
-    
     sys.exit(app.exec())
-    
-
-    
     
 if __name__ == "__main__":
     main()

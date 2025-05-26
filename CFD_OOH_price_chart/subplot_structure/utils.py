@@ -2,8 +2,6 @@
 from __future__ import annotations
 from typing import List, Dict, Union, Any, Tuple, Callable, TYPE_CHECKING
 from dataclasses import dataclass
-
-from dataclasses import dataclass
 from typing import Dict, List, Any
 
 
@@ -43,9 +41,6 @@ def get_metric_requirements():
                                 "type" : "proxy"},
                                 }
 
-
-
-#%%
 
 def synthetic_items_requirement_logic(child_information: Dict[str, str]) -> Dict[str, Any]:
     parent_requirements = {}

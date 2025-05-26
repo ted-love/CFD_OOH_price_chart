@@ -8,7 +8,6 @@ import pyqtgraph as pg
 from datetime import datetime
 from pyqtgraph.graphicsItems.LegendItem import LegendItem, ItemSample
 import utils
-from functools import partial
 from PySide6 import QtCore
 import math
 

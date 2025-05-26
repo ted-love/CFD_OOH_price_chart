@@ -1,24 +1,10 @@
 from __future__ import annotations
-from typing import List, Optional, Tuple, Union, Dict, TYPE_CHECKING, Callable
-if TYPE_CHECKING:
-    from timeseries.classes import TimeSeries, TimeSeriesContainer, TimeSeries
-    from instruments.classes import InstrumentSpecs, InstrumentInfo, PriceInstrument, InstrumentContainer, InstrumentContainer
-    from subplot_structure.classes import SubPlotStructure
-    from exchanges.classes import ExchangeInfo
-    from PySide6.QtWidgets import QWidget, QHBoxLayout
-    
-import sys
+from typing import List, Dict, Callable
+
 from PySide6 import QtCore, QtWidgets
-import workers
 import pyqtgraph as pg
-import custom_qt_classes.custom_widgets as custom_widgets
 import utils
-from custom_qt_classes.plot_data_item import CustomPlotDataItem
-from custom_qt_classes.subplot_item import SubplotItem
 from custom_qt_classes.subplot_widget import SubplotWidget, BlankWidget
-import numpy as np
-from misc import themes
-from datetime import datetime
 import utils
 from custom_qt_classes import menu
 
@@ -43,8 +29,7 @@ class Window(QtWidgets.QMainWindow):
         self.menu=None
         self.subplot_widget_container: Dict[float, SubplotWidget] = {}
         self.blank_subplot_widget_container: Dict[float, BlankWidget] = {}
-        
-        self._close_event_callbacks=[]
+        self._close_event_callbacks: List[Callable]=[]
         self.window_title=window_title
         self.init_layout(subplot_widget_container)    
         self.setWindowTitle(window_title)
@@ -104,7 +89,7 @@ class Window(QtWidgets.QMainWindow):
             self.restructure_subplots()
     
     def remove_blank_subplots(self):
-        for key, blank_subplot in self.blank_subplot_widget_container.copy().items():
+        for blank_subplot in self.blank_subplot_widget_container.copy().values():
             for idx in range(self.subplot_layout.count()-1, -1, -1):
                 hbox_layout = self.subplot_layout.itemAt(idx)
                 hbox_layout.removeWidget(blank_subplot)

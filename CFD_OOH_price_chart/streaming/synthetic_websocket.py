@@ -9,10 +9,8 @@ import websockets
 from dataclasses import dataclass
 import threading
 from websockets.asyncio.client import connect
-import numpy as np
 from time_helpers.classes import PatchedDateTime
 from historical import utils
-import pandas as pd
 
 
 def get_data(names):

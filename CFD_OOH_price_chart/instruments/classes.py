@@ -2,18 +2,14 @@ from __future__ import annotations
 from typing import Callable, Sequence, List, Dict, NoReturn, Union, Tuple, Any, TYPE_CHECKING
 if TYPE_CHECKING:
     from instruments.classes import SyntheticInstrument
-    from instruments.classes import InstrumentContainer
     from mathematics.numerics import MetricEngine, MetricEngine
     from timeseries.classes import TimeSeries
     from custom_numpy import BufferArray
 
-from dataclasses import dataclass, field, InitVar, fields, replace, asdict
+from dataclasses import dataclass, field, replace, asdict
 import datetime
-from itertools import permutations
 from abc import ABC, abstractmethod
 from datetime import datetime
-from weakref import WeakMethod
-import traceback
 
 @dataclass(slots=True, kw_only=True, frozen=True)
 class InstrumentSpecs:

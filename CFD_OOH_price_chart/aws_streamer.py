@@ -8,7 +8,6 @@ import time
 import threading
 import signal
 import sys
-import atexit
 from datetime import datetime, timedelta
 import bisect
 

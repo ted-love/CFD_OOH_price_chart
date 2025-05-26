@@ -2,25 +2,14 @@ from __future__ import annotations
 from typing import List, Dict, Union, Tuple, Callable, TYPE_CHECKING
 if TYPE_CHECKING:
     from instruments.classes import PriceInstrument
-    from subplot_structure.classes import SubPlotStructure
     from timeseries.classes import ParentTimeSeries
-
-    
     from exchanges.classes import ExchangeInfo
-    from trading_ig import IGService
-    from streaming.synthetic_client import SyntheticService
     from workers import WebsocketWorker
     from gui import Window
 
 from PySide6 import QtCore, QtWidgets
-import workers
-import sys
 import gui
-import pyqtgraph as pg
-from custom_qt_classes import builders as builders_pyqt_widgets
 from custom_qt_classes.subplot_widget import SubplotWidget  
-from subplot_structure import builders as builders_subplot_structure
-from custom_qt_classes import menu
 
 windows: Dict[str, Window] = {}
 

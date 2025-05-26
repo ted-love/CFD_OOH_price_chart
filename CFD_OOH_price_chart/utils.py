@@ -1,5 +1,4 @@
 import numpy as np
-from collections import defaultdict
 import operator
 from types import MappingProxyType
 import math
@@ -11,13 +10,20 @@ from pprint import pformat
 
 
 
-secs = (datetime.now() - datetime(2025, 5, 6, 9)).total_seconds()
-#secs = (datetime.now() - datetime.now()).total_seconds()
+datetime_now = datetime.now()
+
+delay_datetime = datetime(2025, 5, 6, 9)  # synthetic
+#delay_datetime = datetime_now   # real-time
+
+
+
+sec_delay = (datetime_now - delay_datetime).total_seconds()
+
 
 class PatchedDateTime(datetime):
     @classmethod
     def now(cls, tz=None):
-        return super().now(tz) - timedelta(seconds=secs)
+        return super().now(tz) - timedelta(seconds=sec_delay)
 
 
 class SystemClock:

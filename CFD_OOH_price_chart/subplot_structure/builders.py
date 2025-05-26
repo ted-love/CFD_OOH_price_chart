@@ -1,21 +1,17 @@
 from __future__ import annotations
 from typing import List, Dict, Union, Tuple, Callable, TYPE_CHECKING
 if TYPE_CHECKING:
-    from instruments.classes import PriceInstrument, SyntheticInstrument, BaseInstrument
+    from instruments.classes import PriceInstrument, BaseInstrument
     from timeseries.classes import TimeSeries, ParentTimeSeries
-    from managers.classes import GlobalInstrumentManager
-    from .classes import SubPlotStructure, SeriesManager
+    from .classes import SubPlotStructure
 
 import pytz
-from instruments.classes import InstrumentSpecs
 from . import classes as classes_plot_config
-from managers import classes as managers_classes
 
 
 from time_helpers import builders as builders_time_helpers
 from time_helpers import classes as classes_time_helpers
 from time_helpers import utils as utils_time_helpers
-from managers import classes as classes_managers
 
 
 def create_subplot_structure_containers(plot_configs: Dict[str, Dict[str, str]],
@@ -55,29 +51,13 @@ def create_subplot_structure_containers(plot_configs: Dict[str, Dict[str, str]],
     return plot_configs_dataclasses
 
 
-def combined_instrument_timeseries_for_manager(base_instruments: Dict[str, PriceInstrument],
-                                               parent_timeseries: Dict[str, TimeSeries]
-                                               ) -> Dict[str, PriceInstrument]:
-    series_managers = []
-    for name, instrument_object in base_instruments.items():
-        series_managers[name] = (managers_classes.SeriesManager(name=name,
-                                                            metric_type="price",
-                                                            timeseries=parent_timeseries[name],
-                                                            instrument=instrument_object,
-                                                            timestamp_filters=parent_timeseries[name].timestamps[0]
-                                                            ))
-    return series_managers
-
-
-def create_returns(instruments_parent_all: Dict[str, BaseInstrument],
-                   timeseries_parent_all: Dict[str, ParentTimeSeries],
+def create_returns2(timeseries_parent_all: Dict[str, ParentTimeSeries],
                    plot_config_structure: Dict[str, SubPlotStructure],
                     ) -> None:
     for plot_config in plot_config_structure.values():
         timestamp=plot_config.close_point
         for instrument_name in plot_config.instrument_names:
             timeseries_parent = timeseries_parent_all[instrument_name]
-            instrument_parent = instruments_parent_all[instrument_name]
             
             timeseries_child = timeseries_parent.create_child(timestamp, 
                                                               metric_type=plot_config.metric_attributes["metric_type_child"], 

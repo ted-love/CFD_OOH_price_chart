@@ -1,27 +1,16 @@
 from __future__ import annotations
 from typing import List, Optional, Tuple, Union, Dict, TYPE_CHECKING, Callable
 if TYPE_CHECKING:
-    from timeseries.classes import TimeSeries, TimeSeriesContainer, TimeSeries
-    from instruments.classes import InstrumentSpecs, InstrumentInfo, PriceInstrument, InstrumentContainer, InstrumentContainer
     from subplot_structure.classes import SubPlotStructure
-    from exchanges.classes import ExchangeInfo
-    from application import Application
     
-import sys
-from PySide6 import QtCore, QtWidgets
-import workers
+from PySide6 import QtCore
 import pyqtgraph as pg
 import custom_qt_classes.custom_widgets as custom_widgets
-import utils
 from custom_qt_classes.plot_data_item import CustomPlotDataItem, CustomScatterPlotDataItem
 from custom_qt_classes.subplot_item import SubplotItem
 from custom_qt_classes.view_box import CustomViewBox
 from custom_qt_classes.subplot_widget import SubplotWidget
 from custom_qt_classes.custom_widgets import MedianLegend
-from mathematics import numerics as math_numerics
-
-
-import numpy as np
 from misc import themes
 
 class CustomTextItem(pg.TextItem):
