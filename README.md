@@ -1,5 +1,3 @@
-<pre>
-
 To use the synthetic test, in main.py, set `test_flag=True` and in `utils.py` set 
 ```python 
 # utils.py
@@ -26,4 +24,3 @@ def _get_maps():
                 }
 
 ```
-<pre>
